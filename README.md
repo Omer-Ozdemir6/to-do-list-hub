@@ -1,16 +1,11 @@
-# React + Vite
+Burada yapılacaklar listesi adı altında gelıstırdıgım bir uygulama yer almaktadır.Uygulama bir görev ve yapılacaklar lıstesıne ihtiyac duyuldugunda yardımcı olmak ıcın tasarlandı. Uygulamada yapabıldıklerımız yenı bır gorev ekleyebılıyoruz guncel gorevlerı lısteleyebılıyor ve duzenleyebılıyoruz. Ayrıca guncel gorevlerımıze ekstra ek madde ekleme ımkanımız bulunuyor ve gerekırse gorevlerı sılebılıyoruz. Tamamlanan gorevler her zaman alt alana yerlesıyor ve guncel olan gorevlerı her zaman ust alanda gorebiliyoruz.Yanı uygulama kullanıcı olarak tasarlandı hala gelistirmeye musaıt durumdadır.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**** Ayrıca eklemeyi düsünduklerım: ****
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- görev eklenınce pop-up acılacak,
+- Gece modu ve gunduz modundakı renk karısıklıgı duzeltılecek.
+- ekranı buyutmek adına sol taraftakı hub menu acılır kapanır olacak
+- işlem önceliğine göre görevler listelenecek.
+- gerekırse yenı nav bar eklenıp gorev ekleme görevlerı lısteleme oraya tasınacak.
