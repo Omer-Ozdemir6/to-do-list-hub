@@ -18,6 +18,13 @@
   --border-primary: #e0e0e0;
   --text-light: #ffffff;
   --text-on-accent: #333;         
+  
+  --navbar-height: 55px;
+  --sidebar-width: 350px;
+
+  --navbar-bg: #CE2829;
+  --navbar-text: #e9ecef;
+  --navbar-brand-color: #ffd700;
 }
 
 .dark-mode {
@@ -28,6 +35,10 @@
   --card-bg: #2d2d30;             
   --border-primary: #555;
   --text-on-accent: #333;       
+
+  --navbar-bg: #1a1a1a;
+  --navbar-text: #ced4da;
+  --navbar-brand-color: #00bcd4;
 }
 
 html, body {
@@ -45,33 +56,118 @@ body {
 }
 
 .App-Container {
+
   display: block;
   min-height: 100vh;
 }
 
+
+
+.Navbar-Container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 25px;
+    height: var(--navbar-height); 
+    width: 100%;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.Navbar-Container {
+    background-color: var(--navbar-bg); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand .brand-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--navbar-brand-color);
+}
+
+.navbar-links a {
+    text-decoration: none;
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--navbar-text);
+}
+
+.navbar-links a:hover {
+    background-color: rgba(255, 255, 255, 0.15); 
+}
+
+.navbar-links a.active {
+    font-weight: bold;
+    color: white !important; 
+    border-bottom: 2px solid var(--navbar-brand-color);
+}
+
+.login-button {
+    background-color: var(--accent-color); 
+    color: var(--text-on-accent);
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover {
+    background-color: #ffc107;
+}
+.navbar-auth {
+  display: flex;
+  gap: 10px; 
+  align-items: center;
+}
+
+.theme-toggle-button {
+
+  background-color: transparent; 
+  color: var(--navbar-text); 
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.theme-toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-color: var(--navbar-brand-color);
+}
+
 .Sidebar {
-  height: 100vh; 
+  width: var(--sidebar-width);
   position: fixed; 
-  top: 0;
   left: 0;
   z-index: 100; 
   box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4); 
-
-  width: 350px; 
-  padding: 20px;
   background-color: var(--sidebar-bg); 
   color: var(--text-light); 
   transition: background-color 0.3s;
+  top: var(--navbar-height);
+  height: calc(100vh - var(--navbar-height));
+  overflow-y: auto;
 }
 
 .MainContent {
-  position: fixed; 
-  top: 0;
+  position: absolute;
   left: 0; 
   width: 100vw; 
-  height: 100vh; 
-  
-  margin-left: 350px; 
+  min-height: 100vh; 
+
+  margin-left: var(--sidebar-width); 
   
   background-color: var(--main-content-bg); 
   color: var(--text-primary);
@@ -82,8 +178,8 @@ body {
   flex-direction: column; 
   align-items: center; 
   justify-content: flex-start; 
-  
-  padding-top: 30px; 
+
+  padding-top: calc(30px + var(--navbar-height)); 
   padding-left: 45px; 
   padding-right: 30px;
   padding-bottom: 30px;
@@ -106,22 +202,17 @@ body {
 }
 
 .task-detail ul li span {
-
   color: var(--text-primary) !important; 
   transition: color 0.3s;
 }
 
 .dark-mode .task-detail ul li span {
-
     color: var(--text-light) !important; 
 }
 
 .task-detail ul li span[style*="line-through"] { 
-
     color: var(--danger-color) !important; 
 }
-
-
 
 .task-item {
   padding: 15px; 

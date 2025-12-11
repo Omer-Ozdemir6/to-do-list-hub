@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { initialTasks } from './data/initialTasks';
 import TaskList from './components/TaskList';
 import TaskDetail from './components/TaskDetail';
 import AddTaskForm from './components/AddTaskForm.jsx'; 
+import Navbar, { VIEWS } from './components/Navbar.jsx'; 
 import './App.css';
 
 const SIDEBAR_WIDTH = 350; 
@@ -11,24 +11,32 @@ const SIDEBAR_WIDTH = 350;
 function App() {
     const [tasks, setTasks] = useState(initialTasks);
     const [selectedTaskId, setSelectedTaskId] = useState(null);
-
+    const [currentView, setCurrentView] = useState(VIEWS.ALL); 
     const [isDarkMode, setIsDarkMode] = useState(false); 
     
     const selectedTask = tasks.find(task => task.id === selectedTaskId);
+
+    const handleViewChange = (view) => {
+        setCurrentView(view);
+        setSelectedTaskId(null); 
+    };
 
     const handleToggleTheme = () => {
         setIsDarkMode(prevMode => !prevMode);
     };
 
     const handleTaskSelect = (id) => {
-
+        if (currentView === VIEWS.ADD_NEW) {
+            setCurrentView(VIEWS.ALL); 
+        }
         setSelectedTaskId(id);
     };
 
     const handleAddTask = (newTask) => {
         setTasks((prevTasks) => [...prevTasks, newTask]);
+        setCurrentView(VIEWS.ALL);
     };
-
+    
     const handleDeleteTask = (taskId) => {
         setTasks((prevTasks) => prevTasks.filter(task => task.id !== taskId));
         if (selectedTaskId === taskId) {
@@ -66,6 +74,14 @@ function App() {
         );
     };
 
+    const handleLoginClick = () => {
+        window.location.href = "/login"; 
+    };
+
+    const handleSignupClick = () => {
+        window.location.href = "/signup"; 
+    };
+
     const sortedTasks = [...tasks].sort((a, b) => {
         const PRIORITIES = { 'High': 3, 'Medium': 2, 'Low': 1 };
         
@@ -78,10 +94,27 @@ function App() {
         return priorityB - priorityA; 
     });
 
+    const displayedTasks = sortedTasks.filter(task => {
+        if (currentView === VIEWS.COMPLETED) {
+
+            return task.isCompleted;
+        }
+
+        return !task.isCompleted; 
+    });
+
 
     return (
-
         <div className={`App-Container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+
+            <Navbar 
+                onViewChange={handleViewChange}
+                currentView={currentView}
+                onLoginClick={handleLoginClick}
+                onSignupClick={handleSignupClick} 
+                isDarkMode={isDarkMode}
+                onToggleTheme={handleToggleTheme}
+            />
 
             <div 
                 className="Sidebar"
@@ -90,51 +123,35 @@ function App() {
                     padding: '20px', 
                 }}
             >
-                <button 
-                    onClick={handleToggleTheme}
-                    style={{ 
-                        backgroundColor: isDarkMode ? '#f8f9fa' : '#343a40', 
-                        color: isDarkMode ? '#343a40' : '#f8f9fa',
-                        padding: '8px 15px', 
-                        borderRadius: '4px', 
-                        border: 'none',
-                        width: '100%',
-                        marginBottom: '20px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    {isDarkMode ? '☀️ Gündüz Modu' : '🌙 Gece Modu'}
-                </button>
-                <div>
-                    <h1 style={{ color: 'var(--accent-color)', textAlign: 'center', marginBottom: '30px', fontSize: '1.8em' }}>
-                        🛠️ TO DO LIST V1.5 HUB
-                    </h1>
-                    
-                    <h3 style={{ color: 'var(--text-light)', borderBottom: '1px solid var(--border-light)', paddingBottom: '10px', marginBottom: '20px' }}>
-                        GÖREV LİSTESİ
-                    </h3>
 
+                
+                <div>
                     <TaskList 
-                        tasks={sortedTasks} 
+                        tasks={displayedTasks} 
                         onSelect={handleTaskSelect} 
                         selectedId={selectedTaskId}
                         onDelete={handleDeleteTask}          
                         onToggleComplete={handleToggleComplete} 
                     />
-
-                    <AddTaskForm onAddTask={handleAddTask} />
                 </div>
             </div>
+
             <div 
                 className="MainContent"
                 style={{
                     marginLeft: `${SIDEBAR_WIDTH}px`,
                     position: 'relative', 
-                    paddingTop: '30px' 
                 }}
             >
                 
-                {selectedTask ? (
+                {currentView === VIEWS.ADD_NEW ? (
+
+                    <div style={{ padding: '40px' }}>
+                        <h2 style={{ color: 'var(--accent-color)' }}>Yeni Görev Ekle</h2>
+                        <AddTaskForm onAddTask={handleAddTask} />
+                    </div>
+                ) : selectedTask ? (
+
                     <TaskDetail 
                         task={selectedTask}
                         onDelete={handleDeleteTask}
@@ -143,9 +160,15 @@ function App() {
                         onUpdateSubtasks={handleUpdateSubtasks}
                     />
                 ) : (
+
                     <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>
                         <h3 style={{ marginBottom: '10px' }}>👋 Merhaba Geliştirici!</h3>
-                        <p>Başlamak için soldaki listeden bir görev seçin veya yeni bir görev ekleyin.</p>
+                        
+                        {currentView === VIEWS.COMPLETED ? (
+                            <p>Tamamlanan görev listesinden bir öge seçin veya aktif görevlere dönün.</p>
+                        ) : (
+                            <p>Başlamak için soldaki aktif görev listesinden bir görev seçin veya **Navbar'daki "Yeni Ekle"** bağlantısını kullanın.</p>
+                        )}
                     </div>
                 )}
             </div>
