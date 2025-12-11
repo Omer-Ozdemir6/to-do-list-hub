@@ -17,16 +17,12 @@ function App() {
     const selectedTask = tasks.find(task => task.id === selectedTaskId);
 
     const handleToggleTheme = () => {
-
         setIsDarkMode(prevMode => !prevMode);
     };
 
     const handleTaskSelect = (id) => {
-        if (id === selectedTaskId) {
-            setSelectedTaskId(null);
-        } else {
-            setSelectedTaskId(id);
-        }
+
+        setSelectedTaskId(id);
     };
 
     const handleAddTask = (newTask) => {
@@ -36,7 +32,7 @@ function App() {
     const handleDeleteTask = (taskId) => {
         setTasks((prevTasks) => prevTasks.filter(task => task.id !== taskId));
         if (selectedTaskId === taskId) {
-            setSelectedTaskId(null);
+            setSelectedTaskId(null); 
         }
     };
 
@@ -94,11 +90,9 @@ function App() {
                     padding: '20px', 
                 }}
             >
-
                 <button 
                     onClick={handleToggleTheme}
                     style={{ 
-
                         backgroundColor: isDarkMode ? '#f8f9fa' : '#343a40', 
                         color: isDarkMode ? '#343a40' : '#f8f9fa',
                         padding: '8px 15px', 
@@ -109,10 +103,8 @@ function App() {
                         cursor: 'pointer'
                     }}
                 >
-
-                    {isDarkMode ? '🌙 Gece Modu' : '☀️ Gündüz Modu'}
+                    {isDarkMode ? '☀️ Gündüz Modu' : '🌙 Gece Modu'}
                 </button>
-
                 <div>
                     <h1 style={{ color: 'var(--accent-color)', textAlign: 'center', marginBottom: '30px', fontSize: '1.8em' }}>
                         🛠️ Oyun Geliştirici HUB
@@ -133,7 +125,6 @@ function App() {
                     <AddTaskForm onAddTask={handleAddTask} />
                 </div>
             </div>
-
             <div 
                 className="MainContent"
                 style={{

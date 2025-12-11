@@ -3,6 +3,7 @@ import React from 'react';
 
 function TaskItem({ task, onSelect, isSelected, onDelete, onToggleComplete }) {
   const handleClick = () => {
+
     onSelect(task.id);
   };
 
@@ -28,22 +29,12 @@ function TaskItem({ task, onSelect, isSelected, onDelete, onToggleComplete }) {
     task.isCompleted ? 'is-completed' : '',
   ].join(' ');
 
-  const actionButtonStyle = {
-    marginLeft: '5px',
-    padding: '5px 10px',
-    borderRadius: '3px',
-    cursor: 'pointer',
-    border: 'none',
-    fontSize: '12px',
-    fontWeight: '600',
-  };
 
   return (
     <div className={itemClasses} onClick={handleClick}>
 
       <div style={{ flexGrow: 1 }}>
-        <h4>{task.title}</h4>
-
+        <h4 style={{ margin: '0 0 5px 0' }}>{task.title}</h4>
         <small
           style={{
             color: task.isCompleted
@@ -55,32 +46,6 @@ function TaskItem({ task, onSelect, isSelected, onDelete, onToggleComplete }) {
         </small>
       </div>
 
-      <div className="task-actions">
-        <button
-          onClick={handleToggleClick}
-          style={{
-            ...actionButtonStyle,
-
-            backgroundColor: task.isCompleted
-              ? 'var(--success-color)'
-              : 'var(--primary-color)',
-            color: 'white',
-          }}
-        >
-
-          {task.isCompleted ? '✓ Tamamlandı' : 'Tamamla'}
-        </button>
-        <button
-          onClick={handleDeleteClick}
-          style={{
-            ...actionButtonStyle,
-            backgroundColor: 'var(--danger-color)',
-            color: 'white',
-          }}
-        >
-          Sil
-        </button>
-      </div>
     </div>
   );
 }
