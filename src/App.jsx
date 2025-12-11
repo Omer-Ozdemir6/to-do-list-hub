@@ -4,7 +4,10 @@ import TaskList from './components/TaskList';
 import TaskDetail from './components/TaskDetail';
 import AddTaskForm from './components/AddTaskForm.jsx'; 
 import Navbar, { VIEWS } from './components/Navbar.jsx'; 
+import SignupForm from './components/SignupForm'; 
 import './App.css';
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 const SIDEBAR_WIDTH = 350; 
 
@@ -14,11 +17,14 @@ function App() {
     const [currentView, setCurrentView] = useState(VIEWS.ALL); 
     const [isDarkMode, setIsDarkMode] = useState(false); 
     
+    const [isSignupVisible, setIsSignupVisible] = useState(false); 
+    
     const selectedTask = tasks.find(task => task.id === selectedTaskId);
 
     const handleViewChange = (view) => {
         setCurrentView(view);
         setSelectedTaskId(null); 
+        setIsSignupVisible(false);
     };
 
     const handleToggleTheme = () => {
@@ -29,12 +35,14 @@ function App() {
         if (currentView === VIEWS.ADD_NEW) {
             setCurrentView(VIEWS.ALL); 
         }
+        setIsSignupVisible(false);
         setSelectedTaskId(id);
     };
 
     const handleAddTask = (newTask) => {
         setTasks((prevTasks) => [...prevTasks, newTask]);
         setCurrentView(VIEWS.ALL);
+        setIsSignupVisible(false);
     };
     
     const handleDeleteTask = (taskId) => {
@@ -75,12 +83,20 @@ function App() {
     };
 
     const handleLoginClick = () => {
-        window.location.href = "/login"; 
+        setIsSignupVisible(false);
+        alert("Giriş sayfasına yönlendirileceksiniz (Router eksik).");
     };
 
     const handleSignupClick = () => {
-        window.location.href = "/signup"; 
+        setIsSignupVisible(true); 
+        setCurrentView(VIEWS.ALL); 
+        setSelectedTaskId(null); 
     };
+    const handleCloseSignup = () => {
+        setIsSignupVisible(false);
+
+    };
+
 
     const sortedTasks = [...tasks].sort((a, b) => {
         const PRIORITIES = { 'High': 3, 'Medium': 2, 'Low': 1 };
@@ -96,16 +112,27 @@ function App() {
 
     const displayedTasks = sortedTasks.filter(task => {
         if (currentView === VIEWS.COMPLETED) {
-
             return task.isCompleted;
         }
-
         return !task.isCompleted; 
     });
 
 
     return (
         <div className={`App-Container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+            
+            <ToastContainer 
+                position="top-right" 
+                autoClose={4000} 
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme={isDarkMode ? "dark" : "light"}
+            />
 
             <Navbar 
                 onViewChange={handleViewChange}
@@ -123,7 +150,6 @@ function App() {
                     padding: '20px', 
                 }}
             >
-
                 
                 <div>
                     <TaskList 
@@ -144,14 +170,14 @@ function App() {
                 }}
             >
                 
-                {currentView === VIEWS.ADD_NEW ? (
-
+                {isSignupVisible ? (
+                    <SignupForm onClose={handleCloseSignup} /> 
+                ) : currentView === VIEWS.ADD_NEW ? (
                     <div style={{ padding: '40px' }}>
                         <h2 style={{ color: 'var(--accent-color)' }}>Yeni Görev Ekle</h2>
                         <AddTaskForm onAddTask={handleAddTask} />
                     </div>
                 ) : selectedTask ? (
-
                     <TaskDetail 
                         task={selectedTask}
                         onDelete={handleDeleteTask}
@@ -160,7 +186,6 @@ function App() {
                         onUpdateSubtasks={handleUpdateSubtasks}
                     />
                 ) : (
-
                     <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>
                         <h3 style={{ marginBottom: '10px' }}>👋 Merhaba Geliştirici!</h3>
                         
