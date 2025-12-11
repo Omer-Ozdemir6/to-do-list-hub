@@ -107,7 +107,7 @@ function App() {
                 </button>
                 <div>
                     <h1 style={{ color: 'var(--accent-color)', textAlign: 'center', marginBottom: '30px', fontSize: '1.8em' }}>
-                        🛠️ Oyun Geliştirici HUB
+                        🛠️ TO DO LIST V1.5 HUB
                     </h1>
                     
                     <h3 style={{ color: 'var(--text-light)', borderBottom: '1px solid var(--border-light)', paddingBottom: '10px', marginBottom: '20px' }}>
