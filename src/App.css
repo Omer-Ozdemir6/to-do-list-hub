@@ -1,28 +1,45 @@
+
 :root {
-  --sidebar-bg: #ce2829;
-  --primary-color: #fdc913;
-  --secondary-color: #ced4da;
-  --main-content-bg: #f4f7f9;
-  --text-dark: #333;
-  --text-light: #ffffff;
-  --success-color: #28a542;
-  --danger-color: #dc3545;
+
+  --accent-color: #FDC913; 
+  --success-color: #28a542; 
+  --danger-color: #dc3545; 
   --warning-color: #ffc107;
-  --border-light: #f8f9fa40;
+  --border-light: #f8f9fa40; 
+
+  --sidebar-bg: #CE2829;/
+  --main-content-bg: #f4f7f9;    
+  --text-primary: #333;
+  --text-secondary: #6c757d;      
+  --card-bg: #ffffff; 
+  --border-primary: #e0e0e0;
+  --text-light: #ffffff;
+  --text-on-accent: #333;
 }
 
-html,
-body {
+.dark-mode {
+  --sidebar-bg: #1e1e1e;          
+  --main-content-bg: #1e1e1e;     
+  --text-primary: #f8f9fa;
+  --text-secondary: #adb5bd;      
+  --card-bg: #2d2d30;             
+  --border-primary: #555;
+
+  --text-on-accent: #333;       
+}
+
+html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow-x: hidden;
+  height: 100%; 
+  overflow-x: hidden; 
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: var(--text-dark);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--main-content-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .App-Container {
@@ -31,28 +48,29 @@ body {
 }
 
 .Sidebar {
-  height: 100vh;
-  position: fixed;
+  height: 100vh; 
+  position: fixed; 
   top: 0;
   left: 0;
-  z-index: 100;
-  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4);
+  z-index: 100; 
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4); 
 
-  width: 350px;
+  width: 350px; 
   padding: 20px;
-  background-color: var(--sidebar-bg);
-  color: var(--text-light);
+  background-color: var(--sidebar-bg); /* DİNAMİK */
+  color: var(--text-light); 
+  transition: background-color 0.3s;
 }
 
 .Sidebar h1 {
-  color: var(--primary-color);
+  color: var(--accent-color);
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 30px; 
   font-size: 1.8em;
 }
 
 .Sidebar h3 {
-  color: var(--text-light);
+  color: var(--text-light); 
   border-bottom: 1px solid var(--border-light);
   padding-bottom: 10px;
   margin-bottom: 20px;
@@ -60,82 +78,66 @@ body {
 
 .MainContent {
   flex-grow: 1;
-  background-color: var(--main-content-bg);
-  position: relative;
-  padding-top: 30px;
-
-  padding: 30px 30px 30px 100px;
-  margin-left: 350px;
+  background-color: var(--main-content-bg); 
+  color: var(--text-primary);
+  position: relative; 
+  padding-top: 30px; 
+  
+  padding: 30px 30px 30px 100px; 
+  margin-left: 350px; 
+  transition: background-color 0.3s, color 0.3s;
 }
 
+
 .task-item {
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  background-color: #ffffff;
+  padding: 15px; 
+  margin-bottom: 12px; 
+  border-radius: 8px; 
+  background-color: var(--card-bg); 
   border-left: 5px solid transparent;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--text-dark);
+  color: var(--text-primary); 
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .task-item.is-selected {
-  border-left-color: var(--primary-color);
-  background-color: #fff9e6;
+  border-left-color: var(--accent-color); 
+  background-color: var(--card-bg); 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .task-item.is-completed {
   opacity: 0.7;
   text-decoration: line-through;
-  color: var(--secondary-color);
+  color: var(--text-secondary); 
 }
 
-.task-detail h1 {
-  color: var(--text-dark);
-  font-size: 2em;
+
+input[type="text"], textarea {
+  border: 1px solid var(--border-primary);
+  background-color: var(--card-bg);
+  color: var(--text-primary);
   margin-bottom: 15px;
 }
-.task-detail h3 {
-  color: var(--text-dark);
-  border-bottom: 1px solid var(--secondary-color);
-  padding-bottom: 5px;
-  margin-top: 35px;
-  margin-bottom: 15px;
+
+.Sidebar form {
+  background-color: rgba(255, 255, 255, 0.1); 
+  border: 1px solid var(--border-light);
 }
 
 .task-detail .description-content {
-  padding: 20px !important;
-  border-radius: 6px;
-  background-color: #f0f0f0 !important;
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border-primary);
 }
 
-.task-detail hr {
-  border: none;
-  border-top: 1px solid var(--secondary-color);
-  margin: 30px 0;
-}
-
-.task-detail ul li {
-  padding: 12px 0 !important;
-}
-
-button {
-  font-weight: 600;
-  transition: background-color 0.2s;
-}
-
-.subtask-actions {
-  display: flex;
-  align-items: center;
-}
 
 .btn-warning {
-  background-color: var(--primary-color);
-  color: var(--text-dark);
+  background-color: var(--accent-color);
+  color: var(--text-on-accent);
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
@@ -145,8 +147,8 @@ button {
 }
 
 .btn-success {
-  background-color: var(--success-color);
-  color: var(--text-light);
+  background-color: var(--success-color); 
+  color: var(--text-light); 
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
@@ -155,14 +157,15 @@ button {
   margin-left: 10px;
 }
 
-.Sidebar form {
-  padding: 20px;
-  border: 1px solid var(--border-light);
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  margin-top: 25px;
+.priority-badge {
+  color: var(--text-light);
 }
 
-.Sidebar form label {
-  color: var(--text-light);
+.priority-medium {
+  background-color: var(--accent-color); 
+  color: var(--text-on-accent);
+}
+
+.priority-high {
+  background-color: var(--danger-color); 
 }
